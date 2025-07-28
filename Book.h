@@ -6,16 +6,16 @@
 
 class Book {
 private:
-    std::string mTitle;      // The book's title (the "name" requirement)
+    std::string mTitle;     
     std::string mAuthor;
-    std::string mIsbn;       // A unique identifier for the book
-    int mQuantity;           // The "at least one attribute" requirement
+    std::string mIsbn;       
+    int mQuantity;           
 
 public:
-    // Default Constructor
+    // onstructors
     Book();
 
-    // Parameterized Constructor
+   
     Book(const std::string& title, const std::string& author, const std::string& isbn, int quantity);
 
     
