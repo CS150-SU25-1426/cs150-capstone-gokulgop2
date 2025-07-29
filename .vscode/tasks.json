@@ -8,10 +8,12 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
+                // All .cpp files must be listed here
                 "${workspaceFolder}/main.cpp",
                 "${workspaceFolder}/Book.cpp",
+                "${workspaceFolder}/BookList.cpp",
                 "-o",
-                "${workspaceFolder}/main"
+                "${workspaceFolder}/Capstone"
             ],
             "problemMatcher": [
                 "$gcc"

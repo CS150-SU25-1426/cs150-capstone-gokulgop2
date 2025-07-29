@@ -1,33 +1,73 @@
 #include <iostream>
-#include "Book.h" 
+#include <limits>
+#include "Book.h"
+#include "BookList.h"
+
+void displayMenu();
+int getMenuChoice();
 
 int main() {
-    std::cout << "--- Testing Book Class ---\n" << std::endl;
+    BookList inventory;
+    int choice = 0;
 
-    // 1.
-    Book book1("The Hitchhiker's Guide to the Galaxy", "Douglas Adams", "978-0345391803", 42);
-    Book book2;
+    inventory += Book("The Hitchhiker's Guide", "Douglas Adams", "978-0345391803", 42);
+    inventory += Book("Dune", "Frank Herbert", "978-0441013593", 25);
 
-    // 2.
-    book2.setTitle("Dune");
-    book2.setAuthor("Frank Herbert");
-    book2.setIsbn("978-0441013593");
-    book2.setQuantity(25);
+    while (choice != 5) {
+        displayMenu();
+        choice = getMenuChoice();
 
-    // 3.
-    std::cout << "--- Displaying Book 1 ---" << std::endl;
-    std::cout << book1 << std::endl;
-
-    std::cout << "\n--- Displaying Book 2 ---" << std::endl;
-    std::cout << book2 << std::endl;
-
-    // 4.
-    std::cout << "\n--- Comparing Books ---" << std::endl;
-    std::cout << "Are Book 1 and Book 2 the same? (0=false, 1=true): " << (book1 == book2) << std::endl;
-
-    
-    Book book3("The Hitchhiker's Guide to the Galaxy", "Douglas Adams", "978-0345391803", 10);
-    std::cout << "Are Book 1 and Book 3 the same? (0=false, 1=true): " << (book1 == book3) << std::endl;
+        switch (choice) {
+            case 1:
+                inventory.addBook();
+                break;
+            case 2:
+                inventory.editBook();
+                break;
+            case 3:
+                inventory.deleteBook();
+                break;
+            case 4:
+                std::cout << inventory; // Uses the overloaded << operator
+                break;
+            case 5:
+                std::cout << "Exiting inventory system. Goodbye!" << std::endl;
+                break;
+            default:
+                std::cout << "Invalid choice, please try again." << std::endl;
+                break;
+        }
+    }
     
     return 0;
+}
+
+
+void displayMenu() {
+    std::cout << "\n--- Bookstore Inventory Menu ---\n";
+    std::cout << "1. Add a new book\n";
+    std::cout << "2. Edit a book's details\n";
+    std::cout << "3. Delete a book\n";
+    std::cout << "4. Show all books\n";
+    std::cout << "5. Exit\n";
+    std::cout << "--------------------------------\n";
+}
+
+// valdation
+int getMenuChoice() {
+    int choice;
+    std::cout << "Enter your choice: ";
+    std::cin >> choice;
+
+   
+    while (std::cin.fail() || choice < 1 || choice > 5) {
+        std::cout << "Invalid input. Please enter a number between 1 and 5: ";
+        std::cin.clear(); 
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard bad input
+        std::cin >> choice;
+    }
+    
+
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    return choice;
 }
