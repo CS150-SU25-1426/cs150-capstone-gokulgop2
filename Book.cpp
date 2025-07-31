@@ -26,7 +26,7 @@ void Book::setQuantity(int quantity) {
     }
 }
 
-// Implementation for the virtual display function for a base (New) Book
+
 void Book::displayDetails(std::ostream& os) const {
     os << "Title:     " << mTitle << std::endl;
     os << "Author:    " << mAuthor << std::endl;
@@ -35,7 +35,6 @@ void Book::displayDetails(std::ostream& os) const {
     os << "Type:      New";
 }
 
-// Updated operator<< to call the virtual function for polymorphic behavior
 std::ostream& operator<<(std::ostream& os, const Book& book) {
     book.displayDetails(os);
     return os;
