@@ -1,12 +1,9 @@
 #include "Book.h"
 #include <iostream>
-#include <iomanip>
-
 
 Book::Book() {
     mQuantity = 0;
 }
-
 
 Book::Book(const std::string& title, const std::string& author, const std::string& isbn, int quantity) {
     mTitle = title;
@@ -15,48 +12,35 @@ Book::Book(const std::string& title, const std::string& author, const std::strin
     mQuantity = quantity;
 }
 
+std::string Book::getTitle() const { return mTitle; }
+std::string Book::getAuthor() const { return mAuthor; }
+std::string Book::getIsbn() const { return mIsbn; }
+int Book::getQuantity() const { return mQuantity; }
 
-std::string Book::getTitle() const {
-    return mTitle;
-}
-std::string Book::getAuthor() const {
-    return mAuthor;
-}
-std::string Book::getIsbn() const {
-    return mIsbn;
-}
-int Book::getQuantity() const {
-    return mQuantity;
-}
-
-
-void Book::setTitle(const std::string& title) {
-    mTitle = title;
-}
-void Book::setAuthor(const std::string& author) {
-    mAuthor = author;
-}
-void Book::setIsbn(const std::string& isbn) {
-    mIsbn = isbn;
-}
+void Book::setTitle(const std::string& title) { mTitle = title; }
+void Book::setAuthor(const std::string& author) { mAuthor = author; }
+void Book::setIsbn(const std::string& isbn) { mIsbn = isbn; }
 void Book::setQuantity(int quantity) {
-    if (quantity >= 0) { 
+    if (quantity >= 0) {
         mQuantity = quantity;
     }
 }
 
+// Implementation for the virtual display function for a base (New) Book
+void Book::displayDetails(std::ostream& os) const {
+    os << "Title:     " << mTitle << std::endl;
+    os << "Author:    " << mAuthor << std::endl;
+    os << "ISBN:      " << mIsbn << std::endl;
+    os << "Quantity:  " << mQuantity << std::endl;
+    os << "Type:      New";
+}
 
-
-//Overloads
+// Updated operator<< to call the virtual function for polymorphic behavior
 std::ostream& operator<<(std::ostream& os, const Book& book) {
-    os << "Title:     " << book.mTitle << std::endl;
-    os << "Author:    " << book.mAuthor << std::endl;
-    os << "ISBN:      " << book.mIsbn << std::endl;
-    os << "Quantity:  " << book.mQuantity;
+    book.displayDetails(os);
     return os;
 }
 
-
 bool operator==(const Book& lhs, const Book& rhs) {
-    return lhs.mIsbn == rhs.mIsbn;
+    return lhs.getIsbn() == rhs.getIsbn();
 }
